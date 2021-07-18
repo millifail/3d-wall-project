@@ -1,0 +1,333 @@
+@keyframes ani-head {
+  to {
+    transform: rotateX(-10deg);
+  }
+  from {
+    transform: rotateX(0deg);
+  }
+}
+
+@keyframes ani-running-leg {
+  to {
+    transform: rotateX(-30deg);
+  }
+  from {
+    transform: rotateX(30deg);
+  }
+}
+@keyframes ani-running-arm {
+  to {
+    transform: rotateY(-30deg);
+  }
+  from {
+    transform: rotateY(30deg);
+  }
+}
+
+body {
+  font-family: "Roboto", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  -webkit-overflow-scrolling: touch;
+  color: #555;
+  background: #fff000;
+  height: 500vw;
+  transition:0.5s
+}
+
+body[data-char='ragirl']{
+  background-color: #ff7200;
+}
+
+.progress-bar-con {
+  width: 100vw;
+  height: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #555;
+  z-index: 100;
+}
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0vw;
+  height: 100%;
+  background-color: #00a8ff;
+  border-radius: 15px;
+}
+
+.world {
+  perspective: 1000px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transform-style: preserve-3d;
+}
+
+.house {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transform-style: preserve-3d;
+  transform: translateZ(-490vw);
+}
+
+.wall {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.wall-left {
+  width: 1000vw;
+  background: #f8f8f8;
+  transform: rotateY(90deg) translateZ(-500vw);
+}
+
+.wall-right {
+  width: 1000vw;
+  background: #f8f8f8;
+  transform: rotateY(90deg) translateZ(-400vw);
+}
+
+.wall-front-a {
+  transform: translateZ(300vw);
+}
+.wall-front-b {
+  transform: translateZ(50vw);
+}
+.wall-front-c {
+  transform: translateZ(-200vw);
+}
+.wall-front-d {
+  transform: translateZ(-500vw);
+}
+
+.wall-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 100vw; */
+  height: 100vh;
+}
+
+.wall-title {
+  font-size: 5rem;
+}
+
+/* character */
+
+.character {
+  position: absolute;
+  /* left: 12%; */
+  margin-left: -5vw;
+  bottom: 5%;
+  width: 10vw;
+  height: 15.58vw;
+  transform-style: preserve-3d;
+}
+
+/* 캐릭터가 쳐다보고 있는 방향 속성으로 정의 */
+.character[data-direction="forward"] {
+  transform: rotateY(0deg);
+}
+.character[data-direction="backward"] {
+  transform: rotateY(180deg);
+}
+.character[data-direction="left"] {
+  transform: rotateY(-90deg);
+}
+.character[data-direction="right"] {
+  transform: rotateY(90deg);
+}
+
+.character-face-con {
+  /* 캐릭터의 각 부위 */
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: 1s;
+  width: 100%;
+  height: 100%;
+}
+
+.character-face {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.character-face.face-back {
+  transform: rotateY(180deg);
+}
+
+/* head */
+.character-head {
+  left: calc(42 / 856 * 100%);
+  top: 0;
+  z-index: 60;
+  width: calc(770 / 856 * 100%);
+  height: calc(648 / 1334 * 100%);
+  transform-origin: center bottom;
+  animation: ani-head 0.6s infinite alternate cubic-bezier(0.42, 0, 0.63, 0.94);
+}
+
+.character-head-face.face-front {
+  background-image: url("./images/ilbuni_head_front.png");
+}
+.character-head-face.face-back {
+  background-image: url("./images/ilbuni_head_back.png");
+}
+
+/* torso */
+
+.character-torso {
+  left: calc(208 / 856 * 100%);
+  top: calc(647 / 1334 * 100%);
+  z-index: 50;
+  width: calc(428 / 856 * 100%);
+  height: calc(385 / 1334 * 100%);
+  /* transform-origin: center center; */
+}
+
+.character-torso-face.face-front {
+  background-image: url("./images/ilbuni_body_front.png");
+}
+.character-torso-face.face-back {
+  background-image: url("./images/ilbuni_body_back.png");
+}
+
+/* arm-right */
+
+.character-arm-right {
+  left: 0;
+  top: calc(648 / 1334 * 100%);
+  width: calc(244 / 856 * 100%);
+  height: calc(307 / 1334 * 100%);
+  transform-origin: right top;
+}
+.character-arm-right .face-front {
+  background-image: url("./images/ilbuni_arm_0.png");
+}
+.character-arm-right .face-back {
+  background-image: url("./images/ilbuni_arm_1.png");
+}
+
+/* arm-left */
+
+.character-arm-left {
+  left: calc(600 / 856 * 100%);
+  top: calc(648 / 1334 * 100%);
+  width: calc(244 / 856 * 100%);
+  height: calc(307 / 1334 * 100%);
+  transform-origin: left top;
+}
+.character-arm-left .face-front {
+  background-image: url("./images/ilbuni_arm_1.png");
+}
+.character-arm-left .face-back {
+  background-image: url("./images/ilbuni_arm_0.png");
+}
+
+/* leg-right */
+
+.character-leg-right {
+  left: calc(200 / 856 * 100%);
+  top: calc(1031 / 1334 * 100%);
+  width: calc(230 / 856 * 100%);
+  height: calc(300 / 1334 * 100%);
+  transform-origin: center top;
+}
+.character-leg-right .face-front {
+  background-image: url("./images/ilbuni_leg_0.png");
+}
+.character-leg-right .face-back {
+  background-image: url("./images/ilbuni_leg_1.png");
+}
+
+/* leg-left */
+.character-leg-left {
+  left: calc(414 / 856 * 100%);
+  top: calc(1031 / 1334 * 100%);
+  width: calc(230 / 856 * 100%);
+  height: calc(300 / 1334 * 100%);
+  transform-origin: center top;
+}
+.character-leg-left .face-front {
+  background-image: url("./images/ilbuni_leg_1.png");
+}
+.character-leg-left .face-back {
+  background-image: url("./images/ilbuni_leg_0.png");
+}
+
+.character.running .character-leg-left {
+  animation: ani-running-leg 0.2s linear infinite alternate-reverse;
+}
+.character.running .character-leg-right {
+  animation: ani-running-leg 0.2s linear infinite alternate;
+}
+.character.running .character-arm {
+  animation: ani-running-arm 0.2s linear infinite alternate-reverse;
+}
+
+/* 캐릭터 선택 */
+
+.select-character{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top:10px;
+  right:10px;
+  z-index: 100;
+}
+
+.select-character-btn{
+  width:40px;
+  height:40px;
+  margin-left: 5px;
+  border:0;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: contain;
+  cursor: pointer;
+  transition:0.5s;
+}
+
+.select-character-btn-ilbuni{
+  background-image: url('images/ilbuni_head_front.png');
+  background-size: 36px auto;
+}
+
+.select-character-btn-ragirl{
+  background-image: url('./images/ragirl_head_front.png');
+  opacity: 0.5;
+}
+body[data-char="ragirl"] .select-character-btn-ilbuni{
+  opacity: 0.5;
+}
+
+body[data-char='ilbuni'] .select-character-btn-ilbuni,
+body[data-char="ragirl"] .select-character-btn-ragirl{
+  opacity: 1;
+}
